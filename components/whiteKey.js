@@ -1,11 +1,16 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { Button } from 'react-native';
 
 class WhiteKey extends React.Component {
     render() {
         return (
             <View style={styles.container}>
-                <Text style={styles.text}>White</Text>
+                <Button
+                    style={styles.container}
+                    title={this.props.pKey}
+                    onPress={e=>this.props.pUpdate(this.props.pKey,e)}
+                />
             </View>
         );
     }

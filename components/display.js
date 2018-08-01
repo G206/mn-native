@@ -5,7 +5,7 @@ class Display extends React.Component {
     render() {
         return (
             <View style={styles.container}>
-                <Text style={styles.text}>Display Component</Text>
+                <Text style={styles.text}>{this.props.pMessage}</Text>
             </View>
         );
     }
