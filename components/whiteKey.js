@@ -9,7 +9,7 @@ class WhiteKey extends React.Component {
                 <Button
                     style={styles.container}
                     title={this.props.pKey}
-                    onPress={e=>this.props.pUpdate(this.props.pKey,e)}
+                    onPress={e=>this.props.pUpdate(this.props.pKey,this.props.pKey,e)}
                 />
             </View>
         );
