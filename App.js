@@ -3,8 +3,8 @@ import {Platform, StyleSheet, Text, View} from 'react-native';
 import Nav from './components/nav';
 import Display from './components/display';
 import Controls from './components/controls';
-//import SoundPlayer from 'react-native-sound-player';
-import TrackPlayer from 'react-native-track-player';
+import SoundPlayer from 'react-native-sound-player';
+//import TrackPlayer from 'react-native-track-player';
 
 export default class App extends React.Component {
     constructor(props) {
@@ -82,29 +82,30 @@ export default class App extends React.Component {
     }
 
     // subscribe to the finished playing event in componentDidMount
-//    componentDidMount() {
-//        SoundPlayer.onFinishedPlaying((success: boolean) => { // success is true when the sound is played
-//            console.log('Finished playing sound file', success)
-//        })
-//    }
+   componentDidMount() {
+       SoundPlayer.onFinishedPlaying((success: boolean) => { // success is true when the sound is played
+           console.log('Finished playing sound file', success)
+       })
+   }
 
     // unsubscribe when unmount
-//    componentWillUnmount() {
-//        SoundPlayer.unmount()
-//    }
+   componentWillUnmount() {
+       SoundPlayer.unmount()
+       console.log('Sound Player unmounted');
+   }
 
-    componentDidMount() {
-        TrackPlayer.setupPlayer();
-        TrackPlayer.updateOptions({
-            stopWithApp: true,
-            capabilities: [
-                TrackPlayer.CAPABILITY_PLAY,
-                TrackPlayer.CAPABILITY_STOP,
-                TrackPlayer.CAPABILITY_PLAY_FROM_ID,
-                TrackPlayer.CAPABILITY_PLAY_FROM_SEARCH,
-            ]
-        });
-    }
+    // componentDidMount() {
+    //     TrackPlayer.setupPlayer();
+    //     TrackPlayer.updateOptions({
+    //         stopWithApp: true,
+    //         capabilities: [
+    //             TrackPlayer.CAPABILITY_PLAY,
+    //             TrackPlayer.CAPABILITY_STOP,
+    //             TrackPlayer.CAPABILITY_PLAY_FROM_ID,
+    //             TrackPlayer.CAPABILITY_PLAY_FROM_SEARCH,
+    //         ]
+    //     });
+    // }
 
     updateMessage = pText =>{
         let prevText = this.state.message;
@@ -113,19 +114,28 @@ export default class App extends React.Component {
         })
     }
 
-    playSound = async (pNote, pType) =>{
+    playSound = (pNote, pType) =>{
         try {
 //            SoundPlayer.playSoundFile(pNote, pType);
-//            SoundPlayer.playUrl('https://example.com/music.mp3');
-            TrackPlayer.reset();
-            let positionNote = this.state.keys.indexOf(pNote);
-            await TrackPlayer.add(this.playlist[positionNote]);
-            TrackPlayer.play();
+            SoundPlayer.playUrl('http://50.112.194.46/assets/audio/03_c.mp3');
             console.log('Played: ' + pNote);
         } catch (e) {
             console.log('Cannot play the sound file: ' + pNote);
+            console.log(e);
         }
     }
+
+    // playSound = async (pNote, pType) =>{
+    //     try {
+    //         TrackPlayer.reset();
+    //         let positionNote = this.state.keys.indexOf(pNote);
+    //         await TrackPlayer.add(this.playlist[positionNote]);
+    //         TrackPlayer.play();
+    //         console.log('Played: ' + pNote);
+    //     } catch (e) {
+    //         console.log('Cannot play the sound file: ' + pNote);
+    //     }
+    // }
 
     keyAction = (pText, pNote) =>{
         this.updateMessage(pText);
